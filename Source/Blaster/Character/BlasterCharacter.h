@@ -6,24 +6,53 @@
 #include "GameFramework/Character.h"
 #include "BlasterCharacter.generated.h"
 
+
+class USpringArmComponent;
+class UCameraComponent;
+class UInputMappingContext;
+class UInputAction;
+struct FInputActionValue;
+
+
 UCLASS()
 class BLASTER_API ABlasterCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
+	
 	ABlasterCharacter();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+protected:
+
+
+	
+	virtual void BeginPlay() override;
+
+	void Move(const FInputActionValue& Value);
+	void Look(const FInputActionValue& Value);
+
+private:
+	 UPROPERTY(VisibleAnywhere, Category = "Camera")
+	 USpringArmComponent* CameraBoom;
+	 UPROPERTY(VisibleAnywhere,  Category = "Camera")
+	 UCameraComponent* FollowCamera;
+
+#pragma region Input Variables
+	 UPROPERTY(EditAnywhere, Category = "Input")
+	 UInputMappingContext* DefaultMappingContext;
+	 UPROPERTY(EditAnywhere, Category = "Input")
+	 UInputAction* MoveAction;
+	 UPROPERTY(EditAnywhere, Category = "Input")
+	 UInputAction* LookAction;
+	 UPROPERTY(EditAnywhere, Category = "Input")
+	 UInputAction* JumpAction;
+#pragma endregion
+
+
 
 };
