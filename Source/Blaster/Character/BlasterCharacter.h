@@ -41,6 +41,8 @@ private:
 	 USpringArmComponent* CameraBoom;
 	 UPROPERTY(VisibleAnywhere,  Category = "Camera")
 	 UCameraComponent* FollowCamera;
+	 UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	 class UWidgetComponent* OverheadWidget;
 
 #pragma region Input Variables
 	 UPROPERTY(EditAnywhere, Category = "Input")
