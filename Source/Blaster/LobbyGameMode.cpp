@@ -14,7 +14,7 @@ void ALobbyGameMode::PostLogin(APlayerController* NewPlayer)
 		UWorld* World = GetWorld();
 		if (World)
 		{
-			World->ServerTravel(FString("/Game/Maps/BlasterMap?listen"));
+			//World->ServerTravel(FString("/Game/Maps/BlasterMap?listen"));
 		}
 	}
 }
