@@ -27,6 +27,7 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void PostInitializeComponents() override;
 
 
 protected:
@@ -35,6 +36,7 @@ protected:
 
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
+	void EquipedButtonPressed();
 
 private:
 	 UPROPERTY(VisibleAnywhere, Category = "Camera")
@@ -53,6 +55,8 @@ private:
 	 UInputAction* LookAction;
 	 UPROPERTY(EditAnywhere, Category = "Input")
 	 UInputAction* JumpAction;
+	 UPROPERTY(EditAnywhere, Category = "Input")
+	 UInputAction* EquipAction;
 #pragma endregion
 
 	 UPROPERTY(ReplicatedUsing = OnRep_OverlappingWeapon)
@@ -60,6 +64,10 @@ private:
 
 	 UFUNCTION()
 	 void OnRep_OverlappingWeapon(AWeapon* LastWeapon);
+
+	 UPROPERTY(VisibleAnywhere)
+	 class UCombatComponent* CombatComponent;
+
 
 public:
 	void SetOverlappingWeapons(AWeapon* Weapon);

@@ -69,7 +69,7 @@ private:
 	class UWidgetComponent* PickupWidget;
 
 public:	
-	
+	FORCEINLINE void SetWeaponState(EWeaponstate State) { WeaponState = State; }
 	
 
 };
