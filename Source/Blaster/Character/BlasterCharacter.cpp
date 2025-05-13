@@ -35,6 +35,9 @@ ABlasterCharacter::ABlasterCharacter()
 
 	CombatComponent = CreateDefaultSubobject<UCombatComponent>(TEXT("CombatComponent"));
 	CombatComponent->SetIsReplicated(true);
+
+	GetCharacterMovement()->NavAgentProps.bCanCrouch = true;
+
 }
 
 
@@ -91,6 +94,7 @@ void ABlasterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ThisClass::Look);
 
 		EnhancedInputComponent->BindAction(EquipAction, ETriggerEvent::Started, this, &ThisClass::EquipedButtonPressed);
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &ThisClass::CrouchButtonPressed);
 	}
 	
 }
@@ -196,4 +200,18 @@ void ABlasterCharacter::ServerEquipButtonPressed_Implementation()
 bool ABlasterCharacter::IsWeaponEquipped()
 {
 	return (CombatComponent && CombatComponent->EquippedWeapon);
+}
+
+void ABlasterCharacter::CrouchButtonPressed()
+{
+	if (bIsCrouched)
+	{
+		UnCrouch();
+	}
+	else
+	{
+		Crouch();
+	}
+
+	
 }
