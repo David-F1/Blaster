@@ -38,6 +38,8 @@ protected:
 	void Look(const FInputActionValue& Value);
 	void EquipedButtonPressed();
 	void CrouchButtonPressed();
+	void AimButtonPressed();
+	void AimButtonReleased();
 
 private:
 	 UPROPERTY(VisibleAnywhere, Category = "Camera")
@@ -60,6 +62,8 @@ private:
 	 UInputAction* EquipAction;
 	 UPROPERTY(EditAnywhere, Category = "Input")
 	 UInputAction* CrouchAction;
+	 UPROPERTY(EditAnywhere, Category = "Input")
+	 UInputAction* AimAction;
 #pragma endregion
 
 	 UPROPERTY(ReplicatedUsing = OnRep_OverlappingWeapon)
@@ -78,5 +82,6 @@ public:
 	void SetOverlappingWeapons(AWeapon* Weapon);
 
 	bool IsWeaponEquipped();
+	bool IsAiming();
 
 };
