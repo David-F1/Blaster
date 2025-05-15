@@ -6,6 +6,7 @@
 #include "Engine/SkeletalMeshSocket.h"
 #include "Components/SphereComponent.h"
 #include "Net/UnrealNetwork.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 UCombatComponent::UCombatComponent()
@@ -54,7 +55,19 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 		HandSocket->AttachActor(EquippedWeapon, CharacterRef->GetMesh());
 	}
 	EquippedWeapon->SetOwner(CharacterRef);
-	
+
+	CharacterRef->GetCharacterMovement()->bOrientRotationToMovement = false;
+	CharacterRef->bUseControllerRotationYaw = true;
+}
+
+void UCombatComponent::OnRep_EquippedWeapon()
+{
+	if (EquippedWeapon && CharacterRef)
+	{
+		CharacterRef->GetCharacterMovement()->bOrientRotationToMovement = false;
+		CharacterRef->bUseControllerRotationYaw = true;
+	}
+
 }
 
 
@@ -65,6 +78,7 @@ void UCombatComponent::SetAiming(bool bIsAiming)
 	ServerSetAiming(bIsAiming);
 
 }
+
 
 void UCombatComponent::ServerSetAiming_Implementation(bool bIsAiming)
 {
